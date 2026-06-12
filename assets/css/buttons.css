@@ -1,0 +1,146 @@
+/* ==========================================================================
+   assets/css/buttons.css - Botones e Interacciones Estilo Ciberpunk
+   ========================================================================== */
+
+/* 1. BOTÓN ESTÁNDAR DE INTERFAZ (BOTONES DE ACCIÓN EN CARDS) */
+.btn {
+  background: var(--bg3);
+  color: var(--green);
+  border: 1px solid var(--border);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.9rem;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+/* Efecto hover general: Brillo ciberpunk y realce de bordes */
+.btn:hover {
+  background: var(--green3);
+  border-color: var(--green);
+  color: #fff;
+  box-shadow: var(--glow);
+}
+
+/* Efecto de pulsación activa */
+.btn:active {
+  transform: scale(0.96);
+}
+
+/* 2. BOTONES DEL HEADER / MENÚ SUPERIOR (HBTN) */
+.hbtn {
+  background: transparent;
+  color: var(--text2);
+  border: 1px solid var(--border);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.85rem;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.hbtn:hover {
+  color: var(--green);
+  border-color: var(--green);
+  background: var(--bg3);
+}
+
+/* Estado activo especial para el indicador del TOKEN (🔑 TOKEN ✓) */
+.hbtn.set {
+  color: var(--green);
+  border-color: var(--green);
+  box-shadow: var(--glow);
+  background: var(--bg3);
+}
+
+/* 3. VARIANTES DE COLOR PARA ACCIONES ESPECÍFICAS (ESTADOS) */
+
+/* Botón Amarillo (Acción: Siguiente / Next Slice) */
+.btn.yellow {
+  color: var(--yellow);
+  border-color: calc(var(--border) * 1.5); /* Sutil variación de borde */
+}
+.btn.yellow:hover {
+  background: rgba(255, 204, 0, 0.15);
+  border-color: var(--yellow);
+  color: #fff;
+  box-shadow: 0 0 12px rgba(255, 204, 0, 0.4);
+}
+
+/* Botón Cian / Azul Eléctrico (Acción: Pausar o Reanudar) */
+.btn.cyan {
+  color: var(--cyan);
+}
+.btn.cyan:hover {
+  background: rgba(0, 229, 255, 0.15);
+  border-color: var(--cyan);
+  color: #fff;
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.4);
+}
+
+/* Botón Naranja (Acción: Marcar Slice como Completado / Hecho) */
+.btn.orange {
+  color: var(--orange);
+}
+.btn.orange:hover {
+  background: rgba(255, 136, 0, 0.15);
+  border-color: var(--orange);
+  color: #fff;
+  box-shadow: 0 0 12px rgba(255, 136, 0, 0.4);
+}
+
+/* Botón Rojo (Acción: Devolver Slice a Pendiente) */
+.btn.red {
+  color: var(--red);
+}
+.btn.red:hover {
+  background: rgba(255, 51, 85, 0.15);
+  border-color: var(--red);
+  color: #fff;
+  box-shadow: 0 0 12px rgba(255, 51, 85, 0.4);
+}
+
+/* 4. BOTONES ACTIVOS COMO FILTROS DE LOGS (.log-filter.active) */
+.log-filter {
+  background: var(--bg2);
+  color: var(--text2);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Share Tech Mono', monospace;
+  transition: all 0.2s ease;
+}
+
+.log-filter:hover {
+  color: var(--text);
+  border-color: var(--text2);
+}
+
+.log-filter.active {
+  background: var(--bg3);
+  color: var(--green);
+  border-color: var(--green);
+  box-shadow: var(--glow);
+}
+
+/* 5. ACCIONES DESHABILITADAS / ESTADO DE CARGA */
+.btn:disabled,
+.hbtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: var(--bg2) !important;
+  color: var(--text2) !important;
+  border-color: var(--border) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}

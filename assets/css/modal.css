@@ -1,0 +1,119 @@
+// modules/auth/tokenModal.js
+import { saveToken, getValidToken } from './auth.js';
+
+export const tokenModalComponent = {
+  /**
+   * Genera la estructura HTML del modal usando las clases exactas de tu css/modal.css
+   */
+  render() {
+    const currentToken = getValidToken() || '';
+    
+    return `
+      <div class="modal-overlay" id="auth-modal-overlay">
+        <div class="modal">
+          <div class="modal-header">
+            <div class="modal-title">🔐 ACCESO REQUERIDO (API TOKEN)</div>
+            <button class="modal-close" id="close-token-modal-btn" aria-label="Cerrar">&times;</button>
+          </div>
+          <div class="modal-body">
+            <p>Introduce el token de seguridad de la API de BitCrack para habilitar el control remoto de las GPUs.</p>
+            <div class="form-group" style="margin-top: 12px;">
+              <input 
+                type="password" 
+                id="token-secret-input" 
+                class="slice-input" 
+                placeholder="0x0000...0000" 
+                value="${currentToken}"
+                autocomplete="off"
+                style="width: 100%; text-align: center; letter-spacing: 2px;"
+              >
+            </div>
+            <div id="modal-auth-error" style="color: var(--red); font-size: 0.8rem; margin-top: 8px; text-align: center; display: none;">
+              ⚠️ Token inválido o sin privilegios de escritura.
+            </div>
+          </div>
+          <div class="modal-actions">
+            <button class="btn" id="save-token-action-btn" style="width: 100%;">ESTABLECER CONEXIÓN SECURA</button>
+          </div>
+        </div>
+      </div>
+    `.trim();
+  },
+
+  /**
+   * Administra el ciclo de vida del modal acoplándose a tus transiciones CSS (.show)
+   * @param {HTMLElement} mountPoint - Elemento del DOM donde se monta (ej. document.body)
+   * @param {Function} onSuccess - Callback al guardar un token válido
+   */
+  open(mountPoint, onSuccess = null) {
+    if (document.getElementById('auth-modal-overlay')) return;
+
+    // 1. Inyectamos el cascarón al DOM (inicialmente invisible por pointer-events y opacity:0)
+    mountPoint.insertAdjacentHTML('beforeend', this.render());
+
+    const overlay = document.getElementById('auth-modal-overlay');
+    const closeBtn = document.getElementById('close-token-modal-btn');
+    const saveBtn = document.getElementById('save-token-action-btn');
+    const input = document.getElementById('token-secret-input');
+    const errorMsg = document.getElementById('modal-auth-error');
+
+    // 2. Forzamos un reflow del navegador para activar la transición de CSS y agregamos .show
+    requestAnimationFrame(() => {
+      overlay.classList.add('show');
+    });
+
+    // Función para desmontar el modal respetando tu transición de 0.25s
+    const closeModal = () => {
+      overlay.classList.remove('show');
+      // Esperamos a que la transición CSS termine antes de extirpar el nodo del DOM
+      overlay.addEventListener('transitionend', () => {
+        overlay.remove();
+      }, { once: true });
+    };
+
+    // Cerrar al pulsar el aspa (X)
+    closeBtn.addEventListener('click', closeModal);
+
+    // Cerrar al hacer clic en el overlay exterior
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeModal();
+    });
+
+    // Acción de Guardado y Validación
+    saveBtn.addEventListener('click', async () => {
+      const tokenValue = input.value.trim();
+      
+      if (!tokenValue) {
+        errorMsg.textContent = '⚠️ El campo del token no puede estar vacío.';
+        errorMsg.style.display = 'block';
+        return;
+      }
+
+      saveBtn.disabled = true;
+      saveBtn.textContent = 'AUTENTICANDO...';
+
+      try {
+        const success = await saveToken(tokenValue);
+        if (success) {
+          closeModal();
+          if (onSuccess) onSuccess();
+        } else {
+          throw new Error('Unauthorized');
+        }
+      } catch (err) {
+        saveBtn.disabled = false;
+        saveBtn.textContent = 'ESTABLECER CONEXIÓN SECURA';
+        errorMsg.textContent = '⚠️ Token rechazado por la API de BitCrack.';
+        errorMsg.style.display = 'block';
+        input.focus();
+      }
+    });
+
+    // Control de teclado rápido (Enter y Escape)
+    input.focus();
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') saveBtn.click();
+      if (e.key === 'Escape') closeModal();
+    });
+  }
+};

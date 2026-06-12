@@ -1,0 +1,121 @@
+/* ==========================================================================
+   modules/scheduler/scheduler.css - Estilos del Planificador CMA-ES
+   ========================================================================== */
+
+/* 1. CONTENEDOR Y META-DATOS PRINCIPALES */
+.scheduler-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 0.85rem;
+  color: var(--text2);
+  margin-bottom: 12px;
+  border-bottom: 1px dashed var(--border);
+  padding-bottom: 8px;
+}
+
+.scheduler-meta b {
+  color: var(--text);
+  font-family: 'Share Tech Mono', monospace;
+}
+
+/* 2. BARRA DE MUTACIÓN ADAPTATIVA (SIGMA) */
+.sigma-section {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 8px;
+  margin: 10px 0;
+}
+
+.sigma-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--text2);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Reutiliza o extiende las clases globales de barras de progreso (.prog-wrap) */
+.sigma-section .prog-wrap {
+  background: var(--bg);
+  height: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.sigma-section .prog-fill {
+  height: 100%;
+  background: var(--cyan);
+  box-shadow: 0 0 8px var(--cyan);
+  transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* 3. LISTADO DE SOLUCIONES ÉLITE (TOP FITNESS) */
+.elite-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text);
+  text-transform: uppercase;
+  margin: 14px 0 8px 0;
+  letter-spacing: 0.5px;
+}
+
+.elite-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+/* Fila individual renderizada por eliteItem.js */
+.elite-item {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 6px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.elite-item:hover {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: var(--text2);
+}
+
+/* Tipografías internas de la fila */
+.elite-rank {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.85rem;
+  min-width: 32px;
+}
+
+.elite-fit {
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-shadow: 0 0 4px rgba(0, 255, 136, 0.15);
+}
+
+.elite-params {
+  font-size: 0.8rem;
+  letter-spacing: 0.3px;
+}
+
+/* Ajuste fino para la barra de desplazamiento interna si la lista crece */
+.elite-list::-webkit-scrollbar {
+  width: 4px;
+}
+.elite-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+.elite-list::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}

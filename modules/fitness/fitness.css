@@ -1,0 +1,111 @@
+/* ==========================================================================
+   modules/fitness/fitness.css - Estilos del Panel de Aptitud (Best Match)
+   ========================================================================== */
+
+/* 1. MÉTRICAS DE CABECERA */
+.fitness-meta {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--green);
+  background: rgba(0, 255, 136, 0.08);
+  padding: 2px 8px;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  text-shadow: 0 0 4px rgba(0, 255, 136, 0.3);
+}
+
+/* 2. TARJETA CONTENEDORA DE LA SOLUCIÓN CAMPEONA (fitnessCard.js) */
+.fitness-card {
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 3. FILAS DE DETALLES TÉCNICOS */
+.fitness-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+}
+
+.fitness-label {
+  color: var(--text2);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+}
+
+.fitness-value {
+  font-family: 'Share Tech Mono', monospace;
+  color: var(--text);
+}
+
+/* Resaltado para la clave hexadecimal candidata */
+.fitness-value.hex-key {
+  color: var(--cyan);
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  background: rgba(0, 229, 255, 0.05);
+  padding: 2px 6px;
+  border-radius: 2px;
+  border: 1px solid rgba(0, 229, 255, 0.1);
+}
+
+/* INDICADOR EN RANGOS DE BITS COINCIDENTES (BIT-MATCH) */
+.bit-match-badge {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: var(--border);
+  color: var(--text2);
+}
+
+/* Si la solución tiene una alta coincidencia, disparamos el neón */
+.fitness-card.high-match {
+  border-color: var(--green);
+  box-shadow: 0 0 16px rgba(0, 255, 136, 0.15);
+  animation: fitness-glow-pulse 2.5s infinite ease-in-out;
+}
+
+.fitness-card.high-match .bit-match-badge {
+  background: var(--green);
+  color: var(--bg);
+  box-shadow: 0 0 8px var(--green);
+}
+
+/* 4. BOTÓN DE VOLCADO / COPIADO RÁPIDO */
+#copy-candidate-btn {
+  margin-top: 4px;
+  width: 100%;
+  padding: 6px;
+  font-size: 0.75rem;
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 1px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#copy-candidate-btn:hover {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+}
+
+/* ANIMACIONES */
+@keyframes fitness-glow-pulse {
+  0% { box-shadow: 0 0 12px rgba(0, 255, 136, 0.1); border-color: var(--border); }
+  50% { box-shadow: 0 0 20px rgba(0, 255, 136, 0.3); border-color: var(--green); }
+  100% { box-shadow: 0 0 12px rgba(0, 255, 136, 0.1); border-color: var(--border); }
+}

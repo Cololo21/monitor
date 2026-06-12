@@ -1,0 +1,59 @@
+/* ==========================================================================
+   assets/css/variables.css - Sistema Central de Variables y Temas
+   ========================================================================== */
+
+/* 1. MODO OSCURO (PREDETERMINADO / CIBERPUNK DE ALTO CONTRASTE) */
+:root {
+  /* Fondos Base */
+  --bg:      #020c05; /* Fondo general de la terminal (Verde ultra-oscuro) */
+  --bg2:     #071410; /* Fondo de tarjetas, cabecera y modales */
+  --bg3:     #0d1f1a; /* Fondo de inputs, ítems de listas y estados internos */
+  
+  /* Paleta Funcional de Colores Activos */
+  --green:   #00ff88; /* Verde Matriz (Color principal de acento y éxito) */
+  --green2:  #00cc66; /* Verde secundario para degradados */
+  --green3:  #004422; /* Verde profundo para hovers o estados de bajo brillo */
+  
+  --yellow:  #ffcc00; /* Alertas de proceso y reasignación de Slices */
+  --red:     #ff3355; /* Errores críticos de API, caídas de red y severidad máxima */
+  --cyan:    #00e5ff; /* Pausas, parámetros CMA-ES y estados informativos */
+  --orange:  #ff8800; /* Finalizaciones manuales y marcas de completado */
+  --dim:     #1a3328; /* Estado apagado o inactivo */
+  
+  /* Textos y Bordes */
+  --text:    #a0ffcc; /* Texto principal (Fósforo brillante de lectura cómoda) */
+  --text2:   #4a9970; /* Texto secundario para etiquetas, placeholders y fechas */
+  --border:  #0a3a28; /* Bordes estructurales de celdas y tarjetas */
+  
+  /* Efectos de Iluminación Neon (Glow) */
+  --glow:    0 0 12px rgba(0, 255, 136, 0.38); /* Brillo intenso para acentos activos */
+  --glow2:   0 0 24px rgba(0, 255, 136, 0.19); /* Resplandor ambiental para contenedores */
+}
+
+/* 2. MODO CLARO (ADAPTACIÓN INVERSA PARA LECTURA CON ALTA LUZ DIURNA) */
+[data-theme="light"] {
+  /* Fondos Base Neutros */
+  --bg:      #f0f5f2; /* Fondo de pantalla claro y limpio */
+  --bg2:     #ffffff; /* Tarjetas blancas puras con contraste */
+  --bg3:     #e2ede7; /* Destacados de inputs y elementos interactivos */
+  
+  /* Paleta Funcional Adaptada (Mayor contraste sobre fondo blanco) */
+  --green:   #00aa55; /* Verde oscurecido para mantener legibilidad */
+  --green2:  #008844;
+  --green3:  #ccf2dd; /* Fondo sutil para bloques de éxito */
+  
+  --yellow:  #b38600; /* Tonos más oscuros para evitar la ceguera por brillo */
+  --red:     #cc1133;
+  --cyan:    #0088cc;
+  --orange:  #cc6600;
+  --dim:     #d0ded6;
+  
+  /* Textos y Bordes Contundentes */
+  --text:    #051a10; /* Texto oscuro de alto contraste */
+  --text2:   #3a664e; /* Subtextos legibles */
+  --border:  #b3cfc0; /* Bordes nítidos */
+  
+  /* Sombras convencionales (Se anula el brillo neón por sombras de profundidad) */
+  --glow:    0 2px 6px rgba(0, 85, 43, 0.15);
+  --glow2:   0 4px 12px rgba(0, 85, 43, 0.08);
+}

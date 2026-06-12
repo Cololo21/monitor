@@ -1,0 +1,36 @@
+// modules/scheduler/eliteItem.js
+
+/**
+ * Componente atómico para renderizar una fila del Top Fitness dentro del Scheduler (CMA-ES)
+ * @param {Object} item - Datos individuales de la solución (rank, fitness, mu, sigma)
+ * @param {number} index - Índice base cero de la iteración para la paleta cromática
+ * @returns {string} Fragmento HTML optimizado
+ */
+export const eliteItemComponent = {
+  render(item, index) {
+    // Matriz de color ciberpunk decreciente según el nivel de prioridad en el ranking
+    const rankColors = [
+      'var(--yellow)', // #1 Oro
+      'var(--cyan)',   // #2 Cian eléctrico
+      'var(--orange)', // #3 Naranja de advertencia
+      'var(--text2)',  // #4 Verde atenuado
+      'var(--border)'  // #5 Bloque de fondo
+    ];
+    
+    const currentColor = rankColors[index] || 'var(--text2)';
+
+    return `
+      <div class="elite-item" style="border-left: 2px solid ${currentColor}; padding-left: 6px; margin-bottom: 4px; display: flex; justify-content: space-between; align-items: center;">
+        <span class="elite-rank" style="color: ${currentColor}; font-weight: bold;">
+          #${item.rank || (index + 1)}
+        </span>
+        <span class="elite-fit font-mono" style="color: var(--green);">
+          ${item.fitness ? item.fitness.toFixed(6) : '0.000000'}
+        </span>
+        <span class="elite-params font-mono" style="color: var(--text2); font-size: 0.8rem;">
+          μ:${item.mu ? item.mu.toFixed(2) : '0.00'} σ:${item.sigma ? item.sigma.toFixed(4) : '0.0000'}
+        </span>
+      </div>
+    `.trim();
+  }
+};

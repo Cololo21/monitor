@@ -1,0 +1,94 @@
+/* ==========================================================================
+   assets/css/forms.css - Campos de Texto y Entradas de Terminal
+   ========================================================================== */
+
+/* 1. CAMPOS DE ENTRADA GENÉRICOS (INPUTS BASE) */
+input[type="text"],
+input[type="number"] {
+  background: var(--bg3);
+  color: var(--text);
+  border: 1px solid var(--border);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.9rem;
+  padding: 6px 10px;
+  border-radius: 4px;
+  width: 100%;
+  outline: none;
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+  transition: all 0.2s ease;
+}
+
+/* Efecto al hacer clic o poner el foco en el campo: Resaltado ciberpunk */
+input[type="text"]:focus,
+input[type="number"]:focus {
+  border-color: var(--green);
+  background: var(--bg);
+  box-shadow: 0 0 8px rgba(0, 255, 136, 0.3), inset 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Personalización del texto de sugerencia (Placeholder) */
+input::placeholder {
+  color: var(--text2);
+  opacity: 0.5;
+}
+
+/* 2. ENTRADAS ESPECÍFICAS DE LAS TARJETAS GPU */
+
+/* Input para la asignación inmediata de un Slice */
+.slice-input {
+  max-width: 90px;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Variación de color interna para denotar que pertenece al bloque manual */
+.manual-input {
+  max-width: 90px;
+  text-align: center;
+  border-color: rgba(255, 136, 0, 0.3) !important;
+  color: var(--orange) !important;
+}
+
+.manual-input:focus {
+  border-color: var(--orange) !important;
+  box-shadow: 0 0 8px rgba(255, 136, 0, 0.3) !important;
+}
+
+/* 3. ENTRADA DEL MODAL DE AUTENTICACIÓN (#TOKEN-INPUT) */
+#token-input {
+  font-size: 1rem;
+  padding: 10px 14px;
+  letter-spacing: 2px;
+  text-align: center;
+  border-color: var(--border);
+  margin-bottom: 15px;
+}
+
+#token-input:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.4);
+}
+
+/* 4. LIMPIEZA DE SELECTORES NATIVOS INCOMODOS (CHROME/FIREFOX) */
+
+/* Eliminar las flechas arriba/abajo nativas de los inputs de tipo número */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Para Firefox */
+}
+
+/* Estilo para campos deshabilitados (ReadOnly / Disabled) */
+input:disabled,
+input[readonly] {
+  background: var(--bg2);
+  color: var(--text2);
+  border-color: var(--border);
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.6;
+}

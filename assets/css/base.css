@@ -1,0 +1,151 @@
+/* ==========================================================================
+   assets/css/base.css - Reset, Layout y Estilos Globales
+   ========================================================================== */
+
+/* 1. RESET GLOBAL Y CONFIGURACIÓN BOX-SIZING */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 2. CONFIGURACIÓN DEL CUERPO (BODY) */
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Share Tech Mono', monospace;
+  min-height: 100vh;
+  line-height: 1.4;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  padding-bottom: 20px;
+}
+
+/* 3. TIPOGRAFÍAS DE TÍTULOS Y ACENTOS CIBERPUNK */
+h1, h2, h3, .logo, .card-title, .found-title {
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 1px;
+}
+
+/* 4. CONFIGURACIÓN DE LA ESTRUCTURA PRINCIPAL (LAYOUT GRID) */
+.page {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 15px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 15px;
+}
+
+/* Forzar que las tarjetas masivas (como el mapa de calor y los logs) ocupen todo el ancho disponible */
+#heatmap-card,
+#logs-card {
+  grid-column: 1 / -1;
+}
+
+/* 5. DISEÑO DE LA CABECERA GLOBAL (HEADER) */
+header {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  box-shadow: var(--glow2);
+}
+
+.logo {
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: var(--text);
+  text-shadow: var(--glow);
+}
+
+.logo span {
+  color: var(--green);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Enlaces de navegación del Header */
+.nav-link {
+  color: var(--text2);
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 5px 8px;
+  border-radius: 4px;
+  transition: color 0.2s, background 0.2s;
+}
+
+.nav-link:hover {
+  color: var(--green);
+  background: var(--bg3);
+}
+
+/* INDICADOR DE CONEXIÓN DE RED (CONN-DOT) */
+.conn-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--red);
+  margin-right: 5px;
+  transition: background-color 0.3s;
+}
+
+.conn-dot.live {
+  background-color: var(--green);
+  box-shadow: var(--glow);
+}
+
+.conn-label {
+  font-size: 0.85rem;
+  color: var(--text2);
+}
+
+/* 6. RESPONSIVE / ADAPTACIÓN A PANTALLAS MÓVILES */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+    padding: 15px 10px;
+  }
+  
+  .header-right {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .page {
+    grid-template-columns: 1fr; /* Una columna única en smartphones */
+    padding: 10px;
+    gap: 10px;
+  }
+}
+
+/* 7. BARRA DE SCROLL PERSONALIZADA ESTILO TERMINAL */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text2);
+}

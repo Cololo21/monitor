@@ -1,0 +1,35 @@
+/* ==========================================================================
+   modules/logs/logs.css - Consola de Comandos y Terminal
+   ========================================================================== */
+
+#logs-card {
+  background: #010803; /* Fondo negro puro estilo caja negra */
+  border-color: var(--border);
+}
+
+.logs-container {
+  font-family: 'Share Tech Mono', monospace;
+  height: 250px;
+  overflow-y: auto;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Formato y Colores por Severidad de Eventos */
+.log-entry {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.log-time { color: var(--text2); margin-right: 4px; }
+.log-tag  { color: var(--cyan); margin-right: 6px; font-weight: bold; }
+
+/* Variaciones Neón */
+.log-info    { color: var(--text); }
+.log-success { color: var(--green); text-shadow: 0 0 4px rgba(0,255,136,0.2); }
+.log-warn    { color: var(--yellow); }
+.log-error   { color: var(--red); text-shadow: 0 0 4px rgba(255,51,85,0.2); font-weight: bold; }

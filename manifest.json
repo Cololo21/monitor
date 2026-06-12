@@ -1,0 +1,40 @@
+{
+  "short_name": "BitCrack",
+  "name": "BitCrack Monitor",
+  "description": "Monitor en tiempo real para clúster de hardware BitCrack con analíticas ciberpunk",
+  "start_url": "/",
+  "background_color": "#020c05",
+  "theme_color": "#020c05",
+  "display": "standalone",
+  "orientation": "any",
+  "categories": ["utilities", "developer"],
+  "icons": [
+    {
+      "src": "/assets/icons/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/icon-192-maskable.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/icons/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
+    }
+  ]
+  "screenshots": [
+    {
+      "src": "/assets/screenshots/desktop.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "BitCrack Monitor Dashboard General"
+    }
+  ]
+}

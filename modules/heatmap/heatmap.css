@@ -1,0 +1,83 @@
+/* ==========================================================================
+   modules/heatmap/heatmap.css - Cuadrícula del Keyspace y Densidad
+   ========================================================================== */
+
+/* 1. CONTENEDOR PRINCIPAL DEL HEATMAP */
+.heatmap-container {
+  position: relative;
+  width: 100%;
+  height: 300px; /* Altura ideal ajustable para el bloque del dashboard */
+  background: #020b05; /* Fondo ultra oscuro con tinte verde matriz */
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden; /* Crucial para que el zoom.js no desborde la tarjeta */
+  user-select: none;
+  cursor: grab;
+}
+
+.heatmap-container:active {
+  cursor: grabbing;
+}
+
+/* 2. LIENZO/REJILLA INTERNA (CONTROLADO POR ZOOM.JS) */
+.heatmap-grid {
+  display: grid;
+  grid-template-columns: repeat(32, 1fr); /* Rejilla balanceada de 32x32 o según backend */
+  gap: 2px;
+  padding: 8px;
+  width: 100%;
+  height: 100%;
+  transform-origin: center center;
+  transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform; /* Fuerza optimización por hardware para el zoom */
+}
+
+/* 3. CELDAS INDIVIDUALES DEL KEYSPACE (RENDERER.JS) */
+.heatmap-cell {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 1px;
+  aspect-ratio: 1 / 1; /* Celdas perfectamente cuadradas */
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  will-change: background-color;
+  cursor: pointer;
+}
+
+/* Estados de densidad de hashing (Rango del Keyspace) */
+.heatmap-cell.density-0 { background: rgba(255, 255, 255, 0.03); } /* Vacío / IDLE */
+.heatmap-cell.density-1 { background: rgba(0, 229, 255, 0.2); }   /* Carga Baja (Cian suave) */
+.heatmap-cell.density-2 { background: var(--cyan); box-shadow: 0 0 4px rgba(0, 229, 255, 0.4); } /* Carga Media */
+.heatmap-cell.density-3 { background: var(--green); box-shadow: 0 0 6px rgba(0, 255, 136, 0.5); } /* Carga Alta (Mining Máximo) */
+.heatmap-cell.density-4 { background: var(--yellow); box-shadow: 0 0 8px var(--yellow); }        /* Zona Caliente */
+.heatmap-cell.density-5 { background: var(--red); box-shadow: 0 0 12px var(--red); }             /* ¡KEY ENCONTRADA / Alerta! */
+
+/* Efecto hover sobre bloques específicos del keyspace */
+.heatmap-cell:hover {
+  filter: brightness(1.4);
+  outline: 1px solid #fff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+  z-index: 10;
+}
+
+/* 4. OVERLAY DE INFORMACIÓN FLOTANTE (TOOLTIP) */
+.heatmap-tooltip {
+  position: absolute;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--cyan);
+  padding: 6px 10px;
+  border-radius: 3px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text);
+  pointer-events: none; /* Evita que el tooltip interfiera con el mouse o el zoom */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  z-index: 9600;
+  display: none; /* Controlado dinámicamente por heatmap.js (.style.display = 'block') */
+}
+
+.heatmap-tooltip-range {
+  color: var(--text2);
+  font-size: 0.65rem;
+  display: block;
+  margin-top: 2px;
+}

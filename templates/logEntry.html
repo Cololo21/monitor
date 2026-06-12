@@ -1,0 +1,31 @@
+// modules/logs/logEntry.js
+
+export const logEntryComponent = {
+  /**
+   * Renderiza una línea individual de la terminal utilizando los datos reales del estado
+   * @param {Object} log - Datos del log del backend (level, timestamp, message)
+   * @returns {string} Estructura HTML optimizada
+   */
+  render(log) {
+    // Normalizamos el nivel de severidad (ALL, WARN, ERROR) a minúsculas
+    const levelClass = log.level ? log.level.toLowerCase() : 'info';
+
+    return `
+      <div class="log-entry log-${levelClass}">
+        <span class="log-time">[${log.timestamp || '00:00:00'}]</span>
+        <span class="log-level" style="font-weight: bold; margin-right: 4px;">[${log.level}]</span>
+        <span class="log-text">${this.escapeHTML(log.message || '')}</span>
+      </div>
+    `.trim();
+  },
+
+  /**
+   * Filtro de seguridad rápido para evitar inyecciones de código en la consola (Anti-XSS)
+   */
+  escapeHTML(str) {
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+};

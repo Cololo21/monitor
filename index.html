@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="theme-color" content="#020c05">
+  <link rel="manifest" href="/manifest.json">
+  <title>BitCrack Monitor</title>
+  
+  <link rel="stylesheet" href="assets/css/fonts.css">
+  
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/cards.css">
+  <link rel="stylesheet" href="assets/css/buttons.css">
+  <link rel="stylesheet" href="assets/css/forms.css">
+  <link rel="stylesheet" href="assets/css/modal.css">
+  <link rel="stylesheet" href="assets/css/dashboard.css">
+  
+  <link rel="stylesheet" href="modules/gpu/gpu.css">
+  <link rel="stylesheet" href="modules/heatmap/heatmap.css">
+  <link rel="stylesheet" href="modules/scheduler/scheduler.css">
+  <link rel="stylesheet" href="modules/fitness/fitness.css">
+  <link rel="stylesheet" href="modules/logs/logs.css">
+  <link rel="stylesheet" href="modules/auth/auth.css">
+</head>
+<body data-theme="dark">
+
+  <div id="found-overlay">
+    <div class="found-box">
+      <div class="found-title">🔑 CLAVE ENCONTRADA</div>
+      <div class="found-sub">Revisa el archivo results/</div>
+    </div>
+  </div>
+
+  <div id="zoom-panel"></div> 
+  <div id="token-modal"></div> 
+  <div id="notif"></div>
+
+  <header>
+    <div class="logo">BIT<span>CRACK</span> MONITOR</div>
+    <div class="header-right" id="header-controls">
+      <a class="nav-link" href="/stats">📊 STATS</a>
+      <button class="hbtn" id="theme-btn">☀️ LIGHT</button>
+      <button class="hbtn" id="token-badge">🔑 TOKEN</button>
+      <button class="hbtn" id="export-log-btn">💾 LOG</button>
+      <div>
+        <span class="conn-dot" id="dot"></span>
+        <span class="conn-label" id="conn-label">CONNECTING...</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="page">
+    
+    <div class="card" id="target-address-card">
+      <div class="card-title">🎯 Target Address</div>
+      <div class="address-box" id="address">—</div>
+    </div>
+
+    <div class="card" id="system-status-card"></div>
+    
+    <div class="card" id="fitness-search-card"></div>
+
+    <div class="card" id="adaptive-scheduler-card"></div>
+
+    <div class="card">
+      <div class="card-title">🖥️ GPU Status</div>
+      <div class="gpu-grid" id="gpu-grid">
+        <div style="color:var(--text2);text-align:center;padding:20px">Cargando GPUs...</div>
+      </div>
+    </div>
+
+    <div class="card" id="heatmap-card"></div>
+
+    <div class="card" id="blocks-card"></div>
+
+    <div class="card" id="logs-card"></div>
+
+  </div>
+
+  <script type="module">
+    import { startPolling } from './core/websocket.js'; 
+    import { initAuth } from './modules/auth/auth.js';
+    import { initToastSystem } from './core/events.js';
+    import { initTheme } from './config/theme.config.js';
+    import { schedulerComponent } from './modules/scheduler/scheduler.js';
+    import { heatmapComponent } from './modules/heatmap/heatmap.js';
+    import { heatmapZoom } from './modules/heatmap/zoom.js';
+    import { logsComponent } from './modules/logs/logs.js';
+    import { renderEngine } from './modules/views/renderEngine.js';
+    import { subscribe } from './core/state.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Inicializar sistemas Core base y configuraciones de pantalla
+      initTheme();
+      initToastSystem();
+      initAuth();
+      heatmapZoom.init();
+      logsComponent.init();
+
+      // 2. Inyectar esqueletos visuales estáticos iniciales en el Grid
+      document.getElementById('heatmap-card').innerHTML = heatmapComponent.render();
+
+      // Recoger la referencia del canvas real generado por el componente del mapa de calor
+      const heatmapCanvas = document.getElementById('heatmap-canvas');
+
+      // 3. Suscribir todos los componentes dinámicos al canal de datos (State centralizado)
+      subscribe((state) => {
+        // Renderizadores puros encargados de actualizar los datos de lectura del monolito
+        renderEngine.updateUI(state);
+        
+        // Actualización en caliente de los mapas de bits y algoritmos CMA-ES
+        heatmapComponent.update(heatmapCanvas, state);
+        
+        const schedulerCard = document.getElementById('adaptive-scheduler-card');
+        if (schedulerCard) {
+          schedulerCard.innerHTML = schedulerComponent.render(state);
+        }
+      });
+
+      // 4. Arrancar el daemon de red asíncrono para obtener datos continuos de la API
+      startPolling();
+    });
+
+    // Registrar Service Worker de la PWA original si el navegador lo soporta
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    }
+  </script>
+</body>
+</html>

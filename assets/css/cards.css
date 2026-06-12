@@ -1,0 +1,144 @@
+/* ==========================================================================
+   assets/css/cards.css - Contenedores y Estructuras de Tarjetas (Cards)
+   ========================================================================== */
+
+/* 1. ESTRUCTURA BASE DE LA TARJETA (CARD CONTENER) */
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 15px;
+  box-shadow: var(--glow2);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Sutil realce al pasar el ratón por encima de cualquier panel informativo */
+.card:hover {
+  border-color: rgba(0, 255, 136, 0.3);
+  box-shadow: 0 0 16px rgba(0, 255, 136, 0.1);
+}
+
+/* 2. COMPONENTES INTERNOS ESTÁNDAR DE UNA CARD */
+
+/* Título de la tarjeta (Estilo tecnológico con Orbitron) */
+.card-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  border-bottom: 1px dashed var(--border);
+  padding-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 3. CONTENEDORES INTERNOS ESPECÍFICOS DEL MONOLITO */
+
+/* Caja contenedora para la dirección objetivo (Target Address Card) */
+.address-box {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1.15rem;
+  color: var(--yellow);
+  padding: 10px;
+  border-radius: 4px;
+  word-break: break-all;
+  text-align: center;
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Rejilla de métricas agregadas (System Status Card) */
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.status-item {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  padding: 8px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.status-val {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--text);
+}
+
+.status-lbl {
+  font-size: 0.75rem;
+  color: var(--text2);
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* 4. COMPONENTES DE BARRAS DE PROGRESO INTERNAS (.prog-wrap / .prog-fill) */
+.prog-wrap {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  height: 12px;
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.6);
+}
+
+.prog-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--green3), var(--green));
+  width: 0%;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 8px var(--green);
+}
+
+/* Etiquetas informativas encima o debajo de las barras */
+.prog-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--text2);
+  margin-top: 4px;
+}
+
+/* 5. DISEÑO DE ELEMENTOS EN LISTADO (Ej: Elite Top 5 del Scheduler) */
+.elite-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  padding: 5px 8px;
+  border-radius: 3px;
+  margin-bottom: 4px;
+  font-size: 0.85rem;
+}
+
+.elite-key {
+  color: var(--cyan);
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.elite-fit {
+  color: var(--green);
+  font-weight: bold;
+}
+
+/* Adaptación responsive rápida para las métricas internas de las tarjetas */
+@media (max-width: 480px) {
+  .status-grid {
+    grid-template-columns: 1fr;
+  }
+}

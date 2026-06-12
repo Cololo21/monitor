@@ -1,0 +1,197 @@
+/* ==========================================================================
+   assets/css/dashboard.css - Layout del Panel Central y Capas Críticas
+   ========================================================================== */
+
+/* 1. SECCIONES PARTICULARES DEL DASHBOARD */
+
+/* Panel superior que contiene la dirección bitcoin objetivo */
+#target-address-card {
+  grid-column: 1 / -1; /* Forzar que ocupe todo el ancho en la parte superior */
+}
+
+/* 2. OVERLAY DE NOTIFICACIÓN BLOQUEANTE (CUANDO SE ENCUENTRA LA CLAVE) */
+#found-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(2, 12, 5, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Mostrar el overlay cuando se inyecte la clase activa mediante JS */
+#found-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.found-box {
+  background: #000;
+  border: 3px solid var(--green);
+  padding: 40px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 0 50px var(--green);
+  animation: foundPulse 2s infinite alternate;
+  max-width: 90%;
+  width: 550px;
+}
+
+.found-title {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--green);
+  text-shadow: var(--glow);
+  margin-bottom: 15px;
+}
+
+.found-sub {
+  font-size: 1.2rem;
+  color: #fff;
+  font-family: 'Share Tech Mono', monospace;
+  letter-spacing: 1px;
+}
+
+/* Animación de pulsación ciberpunk para la caja de alerta crítica */
+@keyframes foundPulse {
+  0% {
+    transform: scale(0.98);
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.4);
+  }
+  100% {
+    transform: scale(1.02);
+    box-shadow: 0 0 60px rgba(0, 255, 136, 0.8);
+  }
+}
+
+/* 3. CONTENEDOR FLOTANTE PARA ALERTAS TOAST (#NOTIF) */
+#notif {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--bg2);
+  border: 1px solid var(--green);
+  color: var(--green);
+  padding: 12px 24px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1rem;
+  border-radius: 4px;
+  z-index: 9000;
+  box-shadow: var(--glow2);
+  transform: translateY(-50px);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#notif.show {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 4. BLOQUE COINCURVE / ECDSA BACKEND INDICATOR */
+.backend-badge-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+#crypto-backend {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: 'Share Tech Mono', monospace;
+  font-weight: bold;
+}
+
+/* 5. DISEÑO DE ELEMENTOS INTERNOS DE BLOQUES PROGRESS (BLOCKS CARD) */
+#blocks-card .blocks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+}
+
+.block-item {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.block-item.active {
+  border-color: var(--yellow);
+  box-shadow: 0 0 8px rgba(255, 204, 0, 0.2);
+}
+
+.block-label {
+  font-size: 0.8rem;
+  color: var(--text2);
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.block-pct {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--text);
+}
+
+.block-bar {
+  background: var(--bg);
+  height: 4px;
+  border-radius: 2px;
+  margin-top: 6px;
+  overflow: hidden;
+}
+
+.block-fill {
+  height: 100%;
+  background: var(--green);
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.block-item.active .block-fill {
+  background: var(--yellow);
+}
+
+/* 6. RESPONSIVE COMPLEMENTARIO PARA EL DASHBOARD GLOBAL */
+@media (max-width: 600px) {
+  #notif {
+    left: 10px;
+    right: 10px;
+    top: auto;
+    bottom: 20px;
+    transform: translateY(50px);
+    text-align: center;
+  }
+  
+  #notif.show {
+    transform: translateY(0);
+  }
+  
+  .found-box {
+    padding: 20px;
+  }
+  
+  .found-title {
+    font-size: 1.6rem;
+  }
+}

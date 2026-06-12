@@ -1,0 +1,84 @@
+/* ==========================================================================
+   modules/gpu/gpu.css - Rejilla Interactiva de GPUs
+   ========================================================================== */
+
+.metrics-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  background: var(--bg);
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  text-align: center;
+}
+
+.metric-val {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1.05rem;
+  font-weight: bold;
+  color: var(--text);
+}
+
+/* Modificadores térmicos */
+.metric-val.hot { color: var(--red) !important; text-shadow: 0 0 6px var(--red); }
+.metric-val.warm { color: var(--orange) !important; }
+
+.metric-lbl {
+  font-size: 0.6rem;
+  color: var(--text2);
+  margin-top: 2px;
+}
+
+/* Badges de estado de red */
+.gpu-badge {
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 1px 6px;
+  border-radius: 3px;
+  border: 1px solid var(--green);
+  color: var(--green);
+}
+.gpu-badge.paused { border-color: var(--cyan); color: var(--cyan); }
+.gpu-badge.retry { border-color: var(--yellow); color: var(--yellow); }
+.gpu-badge.error { border-color: var(--red); color: var(--red); }
+.gpu-badge.idle { border-color: var(--text2); color: var(--text2); }
+
+/* Fila de controles */
+.ctrl-row {
+  display: flex;
+  gap: 6px;
+  margin-top: 4px;
+}
+.ctrl-row .slice-input {
+  flex: 1;
+  min-width: 60px;
+}
+
+/* Contenedor del Gráfico */
+.chart-container {
+  height: 35px;
+  margin: 4px 0;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}
+.mini-chart {
+  width: 100%;
+  height: 100%;
+}
+
+/* Comportamientos ante fallos de Hardware (Alerta de Retry) */
+.retry-alert {
+  background: rgba(255, 51, 85, 0.15);
+  border: 1px solid var(--red);
+  color: #fff;
+  padding: 4px;
+  font-size: 0.75rem;
+  text-align: center;
+  border-radius: 3px;
+  font-weight: bold;
+}
+.gpu-card.alert {
+  border-color: var(--red) !important;
+  box-shadow: 0 0 12px rgba(255, 51, 85, 0.2);
+}

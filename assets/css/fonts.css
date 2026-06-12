@@ -1,0 +1,39 @@
+/* ==========================================================================
+   assets/css/fonts.css - Declaración de Fuentes Locales (Offline)
+   ========================================================================== */
+
+/* ── SHARE TECH MONO (Regular) ── */
+@font-face {
+  font-family: 'Share Tech Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/share-tech-mono-v15-latin-regular.woff2') format('woff2');
+}
+
+/* ── ORBITRON (Regular 400) ── */
+@font-face {
+  font-family: 'Orbitron';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/orbitron-v25-latin-regular.woff2') format('woff2');
+}
+
+/* ── ORBITRON (Bold 700) ── */
+@font-face {
+  font-family: 'Orbitron';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../fonts/orbitron-v25-latin-700.woff2') format('woff2');
+}
+
+/* ── ORBITRON (Black 900) ── */
+@font-face {
+  font-family: 'Orbitron';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('../fonts/orbitron-v25-latin-900.woff2') format('woff2');
+}
